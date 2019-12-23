@@ -36,6 +36,13 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  //Future<Null> refrescarPagina() async {
+  //  final duration = new Duration ( seconds: 2 );
+  //  new Timer( duration, () {
+  //    
+  //  });
+  //}
+
   Widget _encabezadoSeguimiento() {
     return Container(
       color: Colors.grey[600],
@@ -86,37 +93,40 @@ class _HomePageState extends State<HomePage> {
       );
     }
 
-    Widget _crearListado() => FutureBuilder(
-        future: eventosProvider.cargarEventos(),
-        builder: (BuildContext context, AsyncSnapshot<List<EventoModel>> snapshot) {
-          if ( snapshot.hasData ){
-            
-            final eventos = snapshot.data;
-            
-            return ListView.builder(
-              itemCount: eventos.length,
-              itemBuilder: (context, i) => _crearItem(context, eventos[i]),
-            );
-
-          } else {
-            return Center(
-              child: Image.asset("assets/img/jar-loading.gif")
-            );
-          }
-        },
-      );
-
-      Widget _crearItem(BuildContext context,EventoModel evento) {
-        return ListTile(
-          title: Text("${evento.id}",
-            style: TextStyle(
-              fontFamily: "Lato",
-              fontStyle: FontStyle.italic,
-              fontSize: 23.0,
-              color: Colors.black
-            ),
+  Widget _crearListado() => FutureBuilder(
+    future: eventosProvider.cargarEventos(),
+    builder: (BuildContext context, AsyncSnapshot<List<EventoModel>> snapshot) {
+      if ( snapshot.hasData ){
+        final eventos = snapshot.data;
+        return RefreshIndicator(
+         onRefresh: (){},
+          child: ListView.builder(
+            itemCount: eventos.length,
+            itemBuilder: (context, i) => _crearItem(context, eventos[i]),
           ),
-          onTap: () => Navigator.pushNamed(context, "detalle", arguments: evento),
+        );
+      } else {
+        return Center(
+          child: Image.asset("assets/img/jar-loading.gif")
         );
       }
+    },
+  );
+
+  Widget _crearItem(BuildContext context,EventoModel evento) {
+    return ListTile(
+      title: Text("${evento.id}",
+        style: TextStyle(
+          fontFamily: "Lato",
+          fontStyle: FontStyle.italic,
+          fontSize: 23.0,
+          color: Colors.black
+        ),
+      ),
+      onTap: () => Navigator.pushNamed(context, "detalle", arguments: evento),
+    );
+  }
+
+
+
 }

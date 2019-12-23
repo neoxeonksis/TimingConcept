@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:timing_ready/src/models/evento_model.dart';
-import 'package:timing_ready/src/providers/eventos_provider.dart';
 
 class DetalleEvento extends StatefulWidget {
 
@@ -33,20 +32,24 @@ class _DetalleEventoState extends State<DetalleEvento> {
       backgroundColor: Colors.white,
       body: Column(
         children: <Widget>[
-          _encabezadoDetalle( context, AssetImage("assets/icon/atletismo.png") ),
+          _encabezadoDetalle(eventoData, AssetImage("assets/icon/atletismo.png") ),
            SizedBox(height: 40.0),
-           _botones(AssetImage("assets/icon/mapa_interactivo.png"), "Mapa Interactivo"),
+           Container(
+             foregroundDecoration: BoxDecoration(
+               color: Colors.grey,
+               backgroundBlendMode: BlendMode.saturation
+             ),
+             child: _botones(AssetImage("assets/icon/mapa_interactivo.png"), "Proximamente!!!")),
            SizedBox(height: 40.0),
            _botones(AssetImage("assets/icon/lista_participantes.png"), "Listado de Participantes"),
            SizedBox(height: 40.0),
            _botones(AssetImage("assets/icon/resultados_finales.png"), "Resultados Finales"),
         ],
       ),
-      
     );
   }
 
-Widget _encabezadoDetalle(BuildContext context, AssetImage image) {
+Widget _encabezadoDetalle(EventoModel evento, AssetImage image) {
     return Container(
       color: Colors.grey[600],
       child: Padding(
@@ -56,16 +59,19 @@ Widget _encabezadoDetalle(BuildContext context, AssetImage image) {
           children: <Widget>[
             _backBottom(),
             Flexible(
-              child: Text(evento.id,
-              textAlign: TextAlign.center,
-                maxLines: 2,
-                softWrap: true,
-                style: TextStyle(                
-                  color: Colors.white,
-                  fontFamily: "Lato",
-                  fontStyle: FontStyle.italic,
-                  fontSize: 35.0,
-                  fontWeight: FontWeight.bold
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(evento.id,
+                textAlign: TextAlign.center,
+                  maxLines: 3,
+                  softWrap: true,
+                  style: TextStyle(                
+                    color: Colors.white,
+                    fontFamily: "Lato",
+                    fontStyle: FontStyle.italic,
+                    fontSize: 30.0,
+                    fontWeight: FontWeight.bold
+                  ),
                 ),
               ),
             ),
@@ -80,7 +86,7 @@ Widget _encabezadoDetalle(BuildContext context, AssetImage image) {
 
 Widget _backBottom() {
   return FloatingActionButton(
-    elevation: 20.0,
+    elevation: 0.0,
     backgroundColor: Colors.white,
     child: Icon(
       Icons.arrow_back,
@@ -88,7 +94,7 @@ Widget _backBottom() {
       color: Colors.black,
     ),
     onPressed: (){
-      
+      Navigator.pop(context);
     },
   );
 }
@@ -118,7 +124,7 @@ Widget _botones(AssetImage icono ,String nombre,) {
                     color: Colors.white,
                     fontFamily: "Lato",
                     fontStyle: FontStyle.italic,
-                    fontSize: 42.0,
+                    fontSize: 40.0,
                     fontWeight: FontWeight.bold
                   ),
                 ),
@@ -130,4 +136,7 @@ Widget _botones(AssetImage icono ,String nombre,) {
     ),
   );
 }
+
+
+
 }
