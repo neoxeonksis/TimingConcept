@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+//import 'dart:async';
 
 import 'package:timing_ready/src/models/evento_model.dart';
 import 'package:timing_ready/src/providers/eventos_provider.dart';
@@ -22,26 +23,22 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: Color(0xFF249FE2),
         ),
       ),
-      body: Column(
-        children: <Widget>[
-          _encabezadoSeguimiento(),
-          SizedBox(height: 05.0),
-          _descripccion(),
-          SizedBox(height: 05.0),
-          Expanded(
-            child: _crearListado(),
-          )
-        ],
+      body: Container(
+        color: Colors.white,
+        child: Column(
+          children: <Widget>[
+            _encabezadoSeguimiento(),
+            SizedBox(height: 05.0),
+            _descripccion(),
+            SizedBox(height: 05.0),
+            Expanded(
+              child: _crearListado(),
+            )
+          ],
+        ),
       ),
     );
   }
-
-  //Future<Null> refrescarPagina() async {
-  //  final duration = new Duration ( seconds: 2 );
-  //  new Timer( duration, () {
-  //    
-  //  });
-  //}
 
   Widget _encabezadoSeguimiento() {
     return Container(
@@ -98,13 +95,11 @@ class _HomePageState extends State<HomePage> {
     builder: (BuildContext context, AsyncSnapshot<List<EventoModel>> snapshot) {
       if ( snapshot.hasData ){
         final eventos = snapshot.data;
-        return RefreshIndicator(
-         onRefresh: (){},
-          child: ListView.builder(
-            itemCount: eventos.length,
-            itemBuilder: (context, i) => _crearItem(context, eventos[i]),
-          ),
+        return  ListView.builder(
+          itemCount: eventos.length,
+          itemBuilder: (context, i) => _crearItem(context, eventos[i]),
         );
+        
       } else {
         return Center(
           child: Image.asset("assets/img/jar-loading.gif")

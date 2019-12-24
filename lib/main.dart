@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+
 import 'package:timing_ready/src/pages/detalle_evento.dart';
 import 'package:timing_ready/src/pages/home_page.dart';
 //import 'package:timing_ready/src/pages/mapa_recorrido.dart';
+import 'package:timing_ready/src/pages/lista_participantes.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,9 +15,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: "home",
       routes: {
-         "home" : (BuildContext context) => HomePage(),
-         "detalle" : (BuildContext context) => DetalleEvento(),
-         //"mapaRecorrido" : (BuildContext context) => MapaRecorrido(),
+        "home"                : (BuildContext context) => HomePage(),
+        "detalle"             : (BuildContext context) => DetalleEvento(),
+        //"mapaRecorrido"     : (BuildContext context) => MapaRecorrido(),
+        "lista_participantes" : (BuildContext context) => ListaParticipantes(),
       },
     );
   }

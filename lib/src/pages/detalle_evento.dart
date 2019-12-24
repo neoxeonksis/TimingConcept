@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:timing_ready/src/models/evento_model.dart';
+import 'package:timing_ready/src/providers/eventos_provider.dart';
 
 class DetalleEvento extends StatefulWidget {
 
@@ -9,7 +10,7 @@ class DetalleEvento extends StatefulWidget {
 }
 
 class _DetalleEventoState extends State<DetalleEvento> {
-  final eventosProvider = new EventoModel();
+  final eventoProvider = new EventosProvider();
 
   EventoModel evento = new EventoModel();
 
@@ -39,11 +40,11 @@ class _DetalleEventoState extends State<DetalleEvento> {
                color: Colors.grey,
                backgroundBlendMode: BlendMode.saturation
              ),
-             child: _botones(AssetImage("assets/icon/mapa_interactivo.png"), "Proximamente!!!")),
+             child: _mapaInteractivo(AssetImage("assets/icon/mapa_interactivo.png"), "Proximamente!!!")),
            SizedBox(height: 40.0),
-           _botones(AssetImage("assets/icon/lista_participantes.png"), "Listado de Participantes"),
+           _listadoParticipantes(AssetImage("assets/icon/lista_participantes.png"), "Listado de Participantes"),
            SizedBox(height: 40.0),
-           _botones(AssetImage("assets/icon/resultados_finales.png"), "Resultados Finales"),
+           _resultadosParticipantes(AssetImage("assets/icon/resultados_finales.png"), "Resultados Finales"),
         ],
       ),
     );
@@ -99,7 +100,7 @@ Widget _backBottom() {
   );
 }
 
-Widget _botones(AssetImage icono ,String nombre,) {
+Widget _mapaInteractivo(AssetImage icono ,String nombre) {
   return MaterialButton(
     onPressed: () {},
     child: Padding(
@@ -137,6 +138,80 @@ Widget _botones(AssetImage icono ,String nombre,) {
   );
 }
 
+Widget _listadoParticipantes(AssetImage icono ,String nombre) {
+  return MaterialButton(
+    onPressed: () => Navigator.pushNamed(context, "lista_participantes", arguments: evento),
+    child: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Card(
+        color: Color.fromRGBO(36, 159, 226, 1.0),
+        elevation: 10.0,
+        shape:
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              Image(image: icono),
+              Flexible(
+                child: Text(nombre,
+                textAlign: TextAlign.center,
+                  maxLines: 2,
+                  softWrap: true,
+                  style: TextStyle(                
+                    color: Colors.white,
+                    fontFamily: "Lato",
+                    fontStyle: FontStyle.italic,
+                    fontSize: 40.0,
+                    fontWeight: FontWeight.bold
+                  ),
+                ),
+              ),
+            ],
+          ),
+        )
+      ),
+    ),
+  );
+}
 
+Widget _resultadosParticipantes(AssetImage icono ,String nombre) {
+  return MaterialButton(
+    onPressed: () {},
+    child: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Card(
+        color: Color.fromRGBO(36, 159, 226, 1.0),
+        elevation: 10.0,
+        shape:
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              Image(image: icono),
+              Flexible(
+                child: Text(nombre,
+                textAlign: TextAlign.center,
+                  maxLines: 2,
+                  softWrap: true,
+                  style: TextStyle(                
+                    color: Colors.white,
+                    fontFamily: "Lato",
+                    fontStyle: FontStyle.italic,
+                    fontSize: 40.0,
+                    fontWeight: FontWeight.bold
+                  ),
+                ),
+              ),
+            ],
+          ),
+        )
+      ),
+    ),
+  );
+}
 
 }

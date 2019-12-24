@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final eventoModel = eventoModelFromJson(jsonString);
-
 import 'dart:convert';
 
 EventoModel eventoModelFromJson(String str) => EventoModel.fromJson(json.decode(str));
@@ -19,31 +15,31 @@ class EventoModel {
 
     EventoModel({
         this.id,
-        this.apellido = "",
-        this.chip = 0000,
-        this.nombre = "",
-        this.numero = 0000,
-        this.place = 0000,
-        this.tiempo = "00:00:00",
+        this.apellido,
+        this.chip,
+        this.nombre,
+        this.numero,
+        this.place,
+        this.tiempo,
     });
 
-    factory EventoModel.fromJson(Map<String, dynamic> json) => new EventoModel(
-        id        : json["id"],
-        apellido  : json["Apellido"],
-        chip      : json["Chip"],
-        nombre    : json["Nombre"],
-        numero    : json["Numero"],
-        place     : json["Place"],
-        tiempo    : json["Tiempo"],
+    factory EventoModel.fromJson(Map<String, dynamic> json) => EventoModel(
+        id: json["id"],
+        apellido: json["Apellido"],
+        chip: json["Chip"],
+        nombre: json["Nombre"],
+        numero: json["Numero"],
+        place: json["Place"],
+        tiempo: json["Tiempo"],
     );
 
     Map<String, dynamic> toJson() => {
-        "id"        : id,
-        "Apellido"  : apellido,
-        "Chip"      : chip,
-        "Nombre"    : nombre,
-        "Numero"    : numero,
-        "Place"     : place,
-        "Tiempo"    : tiempo,
+        "id": id,
+        "Apellido": apellido,
+        "Chip": chip,
+        "Nombre": nombre,
+        "Numero": numero,
+        "Place": place,
+        "Tiempo": tiempo,
     };
 }
