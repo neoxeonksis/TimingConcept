@@ -33,7 +33,7 @@ Future<List<EventoModel>> cargarParticipantes( EventoModel evento ) async {
   
   if ( decodedData == null ) return [];
   decodedData.forEach(( arg1 ){
-    print(arg1["Nombre"]);
+    print(arg1);
   });
 
   return [];

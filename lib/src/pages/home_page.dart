@@ -27,9 +27,12 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: <Widget>[
             _encabezadoSeguimiento(),
-            SizedBox(height: 05.0),
+            SizedBox(height: 10.0),
             _descripccion(),
-            SizedBox(height: 05.0),
+            SizedBox(height: 20.0,),
+            SizedBox(
+              child: _titulo(),
+            ),
             Expanded(
               child: _crearListado(),
             )
@@ -72,22 +75,17 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _descripccion() {
-      return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: SafeArea(
-          child: Text("Aqui encontraras los eventos que se estan desarrollando ahora mismo",
-            maxLines: 2,
-            softWrap: true,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontFamily: "Lato",
-              fontStyle: FontStyle.italic,
-              fontSize: 28.0,
-            ),
-          ),
-        ),
-      );
-    }
+    return  Text("Aqui encontraras los eventos que se estan desarrollando ahora mismo",
+      maxLines: 2,
+      softWrap: true,
+      textAlign: TextAlign.center,
+      style: TextStyle(
+        fontFamily: "Lato",
+        fontStyle: FontStyle.italic,
+        fontSize: 23.0,
+      ),
+    );  
+  }
 
   Widget _crearListado() {
     return FutureBuilder(
@@ -118,10 +116,31 @@ class _HomePageState extends State<HomePage> {
           fontFamily: "Lato",
           fontStyle: FontStyle.italic,
           fontSize: 28.0,
-          fontWeight: FontWeight.w600
+          fontWeight: FontWeight.w300
         ),
       ),
       onTap: () => Navigator.pushNamed(context, 'detalle', arguments: evento),
+    );
+  }
+
+  Widget _titulo() {
+    return Padding(
+      padding: EdgeInsets.only(left: 12.0),
+      child: Container(
+        child: Align(
+          alignment: Alignment.bottomLeft,
+          child: Text("Eventos",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Color(0xFF249FE2),
+              fontStyle: FontStyle.italic,
+              fontFamily: "Lato",
+              fontSize: 45.0,
+              fontWeight: FontWeight.bold
+            ),
+          ),
+        ),
+      ),
     );
   }
 
