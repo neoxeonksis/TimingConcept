@@ -87,6 +87,27 @@ class _HomePageState extends State<HomePage> {
     );  
   }
 
+  Widget _titulo() {
+    return Padding(
+      padding: EdgeInsets.only(left: 12.0),
+      child: Container(
+        child: Align(
+          alignment: Alignment.bottomLeft,
+          child: Text("Eventos",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Color(0xFF249FE2),
+              fontStyle: FontStyle.italic,
+              fontFamily: "Lato",
+              fontSize: 45.0,
+              fontWeight: FontWeight.bold
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   Widget _crearListado() {
     return FutureBuilder(
       future: eventosProvider.cargarEventos(),
@@ -120,27 +141,6 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       onTap: () => Navigator.pushNamed(context, 'detalle', arguments: evento),
-    );
-  }
-
-  Widget _titulo() {
-    return Padding(
-      padding: EdgeInsets.only(left: 12.0),
-      child: Container(
-        child: Align(
-          alignment: Alignment.bottomLeft,
-          child: Text("Eventos",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Color(0xFF249FE2),
-              fontStyle: FontStyle.italic,
-              fontFamily: "Lato",
-              fontSize: 45.0,
-              fontWeight: FontWeight.bold
-            ),
-          ),
-        ),
-      ),
     );
   }
 

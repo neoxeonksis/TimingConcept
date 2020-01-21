@@ -232,9 +232,8 @@
 
     factory EventoModel.fromJson(Map<String, dynamic> parsedJson){
       var list = parsedJson['participantes'] as List;
-      print(list.runtimeType);
+      //print(list.runtimeType);
       List<Participantes> participantesList = list.map((i) => Participantes.fromJson(i)).toList();
-
       return EventoModel(
         id            : parsedJson ['id'],
         nombreEvento  : parsedJson ['nombreEvento'],
@@ -244,30 +243,42 @@
   }
 
   class Participantes {
-    final String apellido;
-    final int chip;
-    final String nombre;
-    final int numero;
-    final String place;
-    final String tiempo;
+  String apellido;
+  int chip;
+  String nombre;
+  int numero;
+  String place;
+  String tiempo;
 
-    Participantes({
-      this.apellido,
-      this.chip,
-      this.nombre,
-      this.numero,
-      this.place,
-      this.tiempo
-    });
+  Participantes({
+    this.apellido,
+    this.chip,
+    this.nombre,
+    this.numero,
+    this.place,
+    this.tiempo,
+  });
 
-    factory Participantes.fromJson(Map<String, dynamic> parsedJson){
-      return Participantes(
-        apellido  : parsedJson['apellido'],
-        chip      : parsedJson['chip'],
-        nombre    : parsedJson['nombre'],
-        numero    : parsedJson['numero'],
-        place     : parsedJson['place'],
-        tiempo    : parsedJson['tiempo']
-      );
-    }
+  factory Participantes.fromJson(Map<String, dynamic> parsedJson) {
+    //print(list.runtimeType);
+    return Participantes(
+      apellido: parsedJson['Apellido'],
+      chip: parsedJson['Chip'],
+      nombre: parsedJson['Nombre'],
+      numero: parsedJson['Numero'],
+      place: parsedJson['Place'],
+      tiempo: parsedJson['Tiempo'],
+    );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'Apellido': apellido,
+      'Chip': chip,
+      'Nombre': nombre,
+      'Numero': numero,
+      'Place': place,
+      'Tiempo': tiempo,
+    };
+  }
+}

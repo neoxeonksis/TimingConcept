@@ -14,6 +14,7 @@ class _ParticipantesPageState extends State<ParticipantesPage> {
   final eventosProvider = new EventosProvider();
   
   EventoModel evento = new EventoModel();
+  Participantes participantes = new Participantes();
   
   @override
   Widget build(BuildContext context) {
@@ -31,12 +32,16 @@ class _ParticipantesPageState extends State<ParticipantesPage> {
         ),
       ),
       backgroundColor: Colors.white,
-      body: Column(
-        children: <Widget>[
-          _encabezadoParticipantes("Lista de Participantes", AssetImage("assets/icon/lista_participantes-1.png")),
-          SizedBox(height: 40.0),
-          _crearListadoParticipantes()
-        ],
+      body: Container(
+        color: Colors.white,
+        child: Column(
+          children: <Widget>[
+            _encabezadoParticipantes("Lista de Participantes", AssetImage("assets/icon/lista_participantes-1.png")),
+            Expanded(
+              child: _crearListadoParticipantes(),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -92,17 +97,44 @@ class _ParticipantesPageState extends State<ParticipantesPage> {
   }
 
   Widget _crearListadoParticipantes() {
-    return FutureBuilder(
-      future: eventosProvider.cargarParticipantes(evento),
-      builder: (BuildContext context, AsyncSnapshot<List<EventoModel>> snapshot) {
+    return FutureBuilder<List<Participantes>>(
+      future: eventosProvider.cargarParticipantes(evento, participantes),
+      builder: (context, snapshot) {
+        print(snapshot?.data?.length);
         if ( snapshot.hasData ) {
-
-          return Container();
+          final participantes = snapshot.data;
+          return ListView.builder(
+            itemCount: participantes.length,
+            //itemBuilder: (context, i) => _crearParticipante(context, participantes[i]),
+            itemBuilder: (context, i) { 
+              //return Text("${participantes[i]}");
+              return _crearParticipante(context, participantes[i]);
+            }
+          );
           
-        } else {
+        } else if (snapshot.hasError){
+          return Center(child: Text("${snapshot.error}"));
+        } else {  
           return Center( child: CircularProgressIndicator());
         }
       },
+    );
+  }
+
+  Widget _crearParticipante(BuildContext context, Participantes participantes) {
+    print(participantes.nombre);
+    return ListTile(
+      title: Text('${ participantes.nombre } + ${ participantes.apellido }',
+        textAlign: TextAlign.left,
+        softWrap: true,
+        style: TextStyle(
+          color: Colors.red,
+          fontFamily: "Lato",
+          fontStyle: FontStyle.italic,
+          fontSize: 25.0,
+          fontWeight: FontWeight.w300
+        ),
+      ),
     );
   }
 
