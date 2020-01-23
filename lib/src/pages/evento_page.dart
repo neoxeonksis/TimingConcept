@@ -45,7 +45,7 @@ class _EventoPageState extends State<EventoPage> {
            SizedBox(height: 40.0),
            _listadoParticipantes(AssetImage("assets/icon/lista_participantes.png"), "Listado de Participantes"),
            SizedBox(height: 40.0),
-           //_resultadosParticipantes(AssetImage("assets/icon/resultados_finales.png"), "Resultados Finales"),
+           _resultadosFinales(AssetImage("assets/icon/resultados_finales.png"), "Resultados Finales")
         ],
       ),
     );
@@ -142,6 +142,44 @@ class _EventoPageState extends State<EventoPage> {
   Widget _listadoParticipantes(AssetImage icono ,String nombre) {
     return MaterialButton(
       onPressed: () => Navigator.pushNamed(context, "participantes", arguments: evento),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Card(
+          color: Color.fromRGBO(36, 159, 226, 1.0),
+          elevation: 10.0,
+          shape:
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                Image(image: icono),
+                Flexible(
+                  child: Text(nombre,
+                  textAlign: TextAlign.center,
+                    maxLines: 2,
+                    softWrap: true,
+                    style: TextStyle(                
+                      color: Colors.white,
+                      fontFamily: "Lato",
+                      fontStyle: FontStyle.italic,
+                      fontSize: 40.0,
+                      fontWeight: FontWeight.bold
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          )
+        ),
+      ),
+    );
+  }
+
+  Widget _resultadosFinales(AssetImage icono ,String nombre) {
+    return MaterialButton(
+      onPressed: () => Navigator.pushNamed(context, "resultadosFinales", arguments: evento),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Card(

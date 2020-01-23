@@ -19,29 +19,34 @@ class EventosProvider {
       evenTemp.id = id;
       eventos.add(evenTemp);
     });
-    //print(eventos[0].id);
     return eventos;
     
   }
 
-Future<List<Participantes>> cargarParticipantes( EventoModel evento, Participantes participantes ) async {
-  
-  final url = "$_url/eventos/${ evento.id }/participantes.json";
-  final resp = await http.get(url);
-  final respBody = json.decode(resp.body) as List;
-  final participantes = respBody.map((x) => Participantes.fromJson(x)).toList();
-  //List<Participantes> participantes = new List();
-  //if ( decodedData == null ) return [];
-  //decodedData.forEach(( participante ){
-  //final parTemp = Participantes.fromJson();
-  //parTemp.nombre = participante;
-  //participantes.add(parTemp);
-  //print(participante.toString());
-  //});
-  //print(participantes.length);
-  return participantes;
+  Future<List<Participantes>> cargarParticipantes( EventoModel evento, Participantes participantes ) async {
 
-} 
+    final url = "$_url/eventos/${ evento.id }/participantes.json";
+    final resp = await http.get(url);
+    final respBody = json.decode(resp.body) as List;
+    final participantes = respBody.map((x) => Participantes.fromJson(x)).toList();
+    return participantes;
 
+  }
+
+  //Future<List<Participantes>> cargarDatosParticipante( EventoModel evento, Participantes participantes) async {
+//
+  //  final url = "$_url/eventos/${ evento.id }/participantes/${participantes.uniqueId}";
+//
+  //}
+
+  Future<List<Participantes>> buscarParticipantes( EventoModel evento, Participantes participantes ) async {
+
+    final url = "$_url/eventos/${ evento.id }/participantes.json";
+    final resp = await http.get(url);
+    final respBody = json.decode(resp.body) as List;
+    final participantes = respBody;
+    return participantes;
+
+  }
 
 }

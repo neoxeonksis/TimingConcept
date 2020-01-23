@@ -1,25 +1,23 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 import 'package:timing_ready/src/models/evento_model.dart';
 import 'package:timing_ready/src/providers/eventos_provider.dart';
-
 import 'package:timing_ready/src/providers/search_delegate.dart';
 
-class ParticipantesPage extends StatefulWidget {
+class ResultadosFinalesPage extends StatefulWidget {
+  ResultadosFinalesPage({Key key}) : super(key: key);
 
   @override
-  _ParticipantesPageState createState() => _ParticipantesPageState();
+  _ResultadosFinalesPageState createState() => _ResultadosFinalesPageState();
 }
 
-class _ParticipantesPageState extends State<ParticipantesPage> {
-
+class _ResultadosFinalesPageState extends State<ResultadosFinalesPage> {
+  
   final eventosProvider = new EventosProvider();
   
   EventoModel evento = new EventoModel();
   Participantes participantes = new Participantes();
-  
+
   @override
   Widget build(BuildContext context) {
 
@@ -27,7 +25,7 @@ class _ParticipantesPageState extends State<ParticipantesPage> {
     if ( eventoData != null ) {
       evento = eventoData;
     }
-    
+
     return Scaffold(
       floatingActionButton: _botonBusqueda(),
       appBar: PreferredSize(
@@ -41,11 +39,11 @@ class _ParticipantesPageState extends State<ParticipantesPage> {
         color: Colors.white,
         child: Column(
           children: <Widget>[
-            _encabezadoParticipantes("Lista de Participantes", AssetImage("assets/icon/lista_participantes-1.png")),
+            _encabezadoLlegada("Llegada", AssetImage("assets/icon/llegada.png")),
             //SizedBox(height: 20.0,),
             //_barraBusqueda(),
             //SizedBox(height: 20.0,),
-            _cuadroDatos(),
+            _cuadroDatosLlegada(),
             Expanded(
               child: _crearListadoParticipantes(),
             )
@@ -71,7 +69,7 @@ class _ParticipantesPageState extends State<ParticipantesPage> {
     );
   }
 
-  Widget _encabezadoParticipantes(String texto, AssetImage image) {
+  Widget _encabezadoLlegada(String texto, AssetImage image) {
     return Container(
       color: Colors.grey[600],
       child: Padding(
@@ -106,26 +104,7 @@ class _ParticipantesPageState extends State<ParticipantesPage> {
     );
   }
 
-  //Widget _barraBusqueda() {
-  //  return Padding(
-  //    padding: EdgeInsets.all(0.0),
-  //    child: ListTile(
-  //      title: TextField(
-  //        decoration: InputDecoration(
-  //          hintText: "Buscar Numero ó Apellido"
-  //        ),
-  //        onChanged: (string){
-  //          filtroParticipantes = evento.where((u) => (u.n))
-  //        },
-  //      ),
-  //      trailing: IconButton(icon: Icon(Icons.cancel),
-  //      onPressed: () {},
-  //      ),
-  //    ),
-  //  );
-  //}
-
-  Widget _cuadroDatos() {
+  Widget _cuadroDatosLlegada() {
     return Padding(
       padding: EdgeInsets.all(10.0),
       child: Container(
@@ -133,6 +112,16 @@ class _ParticipantesPageState extends State<ParticipantesPage> {
         color: Color(0xFF249FE2),
         child: Row(
           children: <Widget>[
+            Text("Tiempo",
+              style: TextStyle(
+                color: Colors.white,
+                fontFamily: "Lato_LightItalic",
+                fontStyle: FontStyle.italic,
+                fontSize: 23.0,
+                fontWeight: FontWeight.w300
+              ),
+            ),
+            SizedBox(width: 20.0),
             Text(" Numero",
               style: TextStyle(
                 color: Colors.white,
@@ -185,23 +174,23 @@ class _ParticipantesPageState extends State<ParticipantesPage> {
       padding: EdgeInsets.all(12.0),
       child: GestureDetector(
         child: RichText(
-          softWrap: false,
           text: TextSpan(
             style: TextStyle(
               color: Colors.black,
               fontFamily: "Lato_LightItalic",
               fontStyle: FontStyle.italic,
-              fontSize: 20.0,
+              fontSize: 17.5,
               fontWeight: FontWeight.w400
             ),
             children: [
+              TextSpan(text: '${participantes.tiempo}'),
               TextSpan(text: '     '+'${participantes.numero}',
                 style: TextStyle(
                   fontWeight: FontWeight.w600
                 )
               ),
-              TextSpan(text: "           "),
-              TextSpan(text: '${participantes.apellido} ${participantes.nombre}',)
+              TextSpan(text: "    "),
+              TextSpan(text: '${participantes.apellido}')
             ],
           ),
         ),
@@ -210,7 +199,7 @@ class _ParticipantesPageState extends State<ParticipantesPage> {
     );
   }
 
-  Widget _botonBusqueda() {
+    Widget _botonBusqueda() {
     return FloatingActionButton(
       heroTag: "buscar",
       child: Icon(Icons.search),
