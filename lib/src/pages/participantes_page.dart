@@ -218,7 +218,6 @@ class _ParticipantesPageState extends State<ParticipantesPage> {
       onPressed: (){
         showSearch(context: context, 
         delegate: DataSearch(),
-        //query: "Hola"
         );
       },
     );

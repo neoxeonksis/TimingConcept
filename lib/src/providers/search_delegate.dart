@@ -5,8 +5,8 @@ import 'package:timing_ready/src/providers/eventos_provider.dart';
 class DataSearch extends SearchDelegate{
 
 final eventosProvider = EventosProvider();
-EventoModel evento = new EventoModel();
-Participantes participantes = new Participantes();
+EventoModel evento =  EventoModel();
+Participantes participantes =  Participantes();
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -38,12 +38,6 @@ Participantes participantes = new Participantes();
   @override
   Widget buildResults(BuildContext context) {
     // Builder de los resultados
-    return Container();
-  }
-
-  @override
-  Widget buildSuggestions(BuildContext context) {
-    // Sugerencias al escribir
     if ( query.isEmpty ) {
       return Container();
     }
@@ -92,4 +86,9 @@ Participantes participantes = new Participantes();
     );
   }
 
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    // Sugerencias al escribir
+      return Container();
+  }
 }
