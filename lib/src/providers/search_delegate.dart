@@ -69,7 +69,7 @@ Participantes participantes = new Participantes();
   }
   Widget _crearParticipante(BuildContext context, Participantes participantes) {
     return ListTile(
-      title: Text('${participantes.nombre + " " + participantes.apellido}',
+      title: Text('${participantes.apellido}',
         textAlign: TextAlign.left,
         softWrap: true,
         style: TextStyle(

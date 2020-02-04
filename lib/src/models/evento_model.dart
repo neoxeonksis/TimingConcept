@@ -22,7 +22,7 @@
   }
 
   class Participantes {
-    String uniqueId;
+  String uniqueId;
   String apellido;
   int chip;
   String nombre;
@@ -42,23 +42,23 @@
   factory Participantes.fromJson(Map<String, dynamic> parsedJson) {
     //print(list.runtimeType);
     return Participantes(
-      apellido: parsedJson['Apellido'],
-      chip: parsedJson['Chip'],
-      nombre: parsedJson['Nombre'],
-      numero: parsedJson['Numero'],
-      place: parsedJson['Place'],
-      tiempo: parsedJson['Tiempo'],
+      apellido  : parsedJson['Apellido'],
+      chip      : parsedJson['Chip'],
+      nombre    : parsedJson['Nombre'],
+      numero    : parsedJson['Numero'],
+      place     : parsedJson['Place'],
+      tiempo    : parsedJson['Tiempo'],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'Apellido': apellido,
-      'Chip': chip,
-      'Nombre': nombre,
-      'Numero': numero,
-      'Place': place,
-      'Tiempo': tiempo,
+      'Apellido'  : apellido,
+      'Chip'      : chip,
+      'Nombre'    : nombre,
+      'Numero'    : numero,
+      'Place'     : place,
+      'Tiempo'    : tiempo,
     };
   }
 }

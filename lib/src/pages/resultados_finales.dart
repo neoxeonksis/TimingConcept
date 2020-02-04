@@ -194,7 +194,7 @@ class _ResultadosFinalesPageState extends State<ResultadosFinalesPage> {
             ],
           ),
         ),
-        onTap: () => Navigator.pushNamed(context, 'destalleParticipante', arguments: evento),
+        onTap: () => Navigator.pushNamed(context, 'destalleParticipante', arguments: participantes),
       ),
     );
   }

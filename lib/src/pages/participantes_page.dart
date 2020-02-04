@@ -181,6 +181,7 @@ class _ParticipantesPageState extends State<ParticipantesPage> {
   }
 
   Widget _crearParticipante(BuildContext context, Participantes participantes, EventoModel evento) {
+    //print("evento: $evento");
     return Padding(
       padding: EdgeInsets.all(12.0),
       child: GestureDetector(
@@ -205,7 +206,7 @@ class _ParticipantesPageState extends State<ParticipantesPage> {
             ],
           ),
         ),
-        onTap: () => Navigator.pushNamed(context, 'destalleParticipante', arguments: evento),
+        onTap: () => Navigator.pushNamed(context, 'destalleParticipante', arguments: participantes),
       ),
     );
   }
