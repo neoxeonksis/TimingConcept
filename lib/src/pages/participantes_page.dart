@@ -16,6 +16,8 @@ class ParticipantesPage extends StatefulWidget {
 class _ParticipantesPageState extends State<ParticipantesPage> {
 
   final eventosProvider = new EventosProvider();
+
+  TextEditingController controller = new TextEditingController();
   
   EventoModel evento = new EventoModel();
   Participantes participantes = new Participantes();
@@ -29,7 +31,7 @@ class _ParticipantesPageState extends State<ParticipantesPage> {
     }
     
     return Scaffold(
-      floatingActionButton: _botonBusqueda(),
+      floatingActionButton: _botonBusqueda(evento),
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(0),
         child: AppBar(
@@ -42,9 +44,9 @@ class _ParticipantesPageState extends State<ParticipantesPage> {
         child: Column(
           children: <Widget>[
             _encabezadoParticipantes("Lista de Participantes", AssetImage("assets/icon/lista_participantes-1.png")),
-            //SizedBox(height: 20.0,),
-            //_barraBusqueda(),
-            //SizedBox(height: 20.0,),
+            SizedBox(height: 20.0,),
+            _barraBusqueda(),
+            SizedBox(height: 20.0,),
             _cuadroDatos(),
             Expanded(
               child: _crearListadoParticipantes(),
@@ -106,24 +108,25 @@ class _ParticipantesPageState extends State<ParticipantesPage> {
     );
   }
 
-  //Widget _barraBusqueda() {
-  //  return Padding(
-  //    padding: EdgeInsets.all(0.0),
-  //    child: ListTile(
-  //      title: TextField(
-  //        decoration: InputDecoration(
-  //          hintText: "Buscar Numero ó Apellido"
-  //        ),
-  //        onChanged: (string){
-  //          filtroParticipantes = evento.where((u) => (u.n))
-  //        },
-  //      ),
-  //      trailing: IconButton(icon: Icon(Icons.cancel),
-  //      onPressed: () {},
-  //      ),
-  //    ),
-  //  );
-  //}
+  Widget _barraBusqueda() {
+    return Padding(
+      padding: EdgeInsets.all(0.0),
+      child: ListTile(
+        title: TextField(
+          controller: controller,
+          decoration: InputDecoration(
+            hintText: "Buscar Dorsal ó Nombre"
+          ),
+          onChanged: (text){
+            
+          },
+        ),
+        trailing: IconButton(icon: Icon(Icons.cancel),
+        onPressed: () {},
+        ),
+      ),
+    );
+  }
 
   Widget _cuadroDatos() {
     return Padding(
@@ -211,13 +214,14 @@ class _ParticipantesPageState extends State<ParticipantesPage> {
     );
   }
 
-  Widget _botonBusqueda() {
+  Widget _botonBusqueda(EventoModel evento) {
+    print(evento.id);
     return FloatingActionButton(
       heroTag: "buscar",
       child: Icon(Icons.search),
       onPressed: (){
         showSearch(context: context, 
-        delegate: DataSearch(),
+          delegate: DataSearch(),
         );
       },
     );

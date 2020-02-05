@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:timing_ready/src/models/evento_model.dart';
 import 'package:timing_ready/src/providers/eventos_provider.dart';
 
@@ -38,6 +39,12 @@ Participantes participantes =  Participantes();
   @override
   Widget buildResults(BuildContext context) {
     // Builder de los resultados
+    return Container();
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    // Sugerencias al escribir
     if ( query.isEmpty ) {
       return Container();
     }
@@ -85,10 +92,5 @@ Participantes participantes =  Participantes();
       ),
     );
   }
-
-  @override
-  Widget buildSuggestions(BuildContext context) {
-    // Sugerencias al escribir
-      return Container();
-  }
+  
 }
