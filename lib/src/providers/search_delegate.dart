@@ -69,26 +69,31 @@ Participantes participantes =  Participantes();
     );
   }
   Widget _crearParticipante(BuildContext context, Participantes participantes) {
-    return ListTile(
-      title: Text('${participantes.apellido}',
-        textAlign: TextAlign.left,
-        softWrap: true,
-        style: TextStyle(
-          color: Colors.black,
-          fontFamily: "Lato_LightItalic",
-          fontStyle: FontStyle.italic,
-          fontSize: 18.0,
-          fontWeight: FontWeight.w300
+    return Padding(
+      padding: EdgeInsets.all(12.0),
+      child: GestureDetector(
+        child: RichText(
+          softWrap: false,
+          text: TextSpan(
+            style: TextStyle(
+              color: Colors.black,
+              fontFamily: "Lato_LightItalic",
+              fontStyle: FontStyle.italic,
+              fontSize: 20.0,
+              fontWeight: FontWeight.w400
+            ),
+            children: [
+              TextSpan(text: '     '+'${participantes.numero}',
+                style: TextStyle(
+                  fontWeight: FontWeight.w600
+                )
+              ),
+              TextSpan(text: "           "),
+              TextSpan(text: '${participantes.apellido} ${participantes.nombre}',)
+            ],
+          ),
         ),
-      ),
-      subtitle: Text('Numero: ${ participantes.numero }',
-        style: TextStyle(
-          color: Colors.black,
-          fontFamily: "Lato_LightItalic",
-          fontStyle: FontStyle.italic,
-          fontSize: 16.0,
-          fontWeight: FontWeight.w300
-        ),
+        onTap: () => Navigator.pushNamed(context, 'destalleParticipante', arguments: participantes),
       ),
     );
   }

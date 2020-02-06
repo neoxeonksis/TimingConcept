@@ -44,9 +44,9 @@ class _ParticipantesPageState extends State<ParticipantesPage> {
         child: Column(
           children: <Widget>[
             _encabezadoParticipantes("Lista de Participantes", AssetImage("assets/icon/lista_participantes-1.png")),
-            SizedBox(height: 20.0,),
-            _barraBusqueda(),
-            SizedBox(height: 20.0,),
+            //SizedBox(height: 20.0,),
+            //_barraBusqueda(),
+            //SizedBox(height: 20.0,),
             _cuadroDatos(),
             Expanded(
               child: _crearListadoParticipantes(),
@@ -108,25 +108,25 @@ class _ParticipantesPageState extends State<ParticipantesPage> {
     );
   }
 
-  Widget _barraBusqueda() {
-    return Padding(
-      padding: EdgeInsets.all(0.0),
-      child: ListTile(
-        title: TextField(
-          controller: controller,
-          decoration: InputDecoration(
-            hintText: "Buscar Dorsal ó Nombre"
-          ),
-          onChanged: (text){
-            
-          },
-        ),
-        trailing: IconButton(icon: Icon(Icons.cancel),
-        onPressed: () {},
-        ),
-      ),
-    );
-  }
+  //Widget _barraBusqueda() {
+  //  return Padding(
+  //    padding: EdgeInsets.all(0.0),
+  //    child: ListTile(
+  //      title: TextField(
+  //        controller: controller,
+  //        decoration: InputDecoration(
+  //          hintText: "Buscar Dorsal ó Nombre"
+  //        ),
+  //        onChanged: (text){
+  //          
+  //        },
+  //      ),
+  //      trailing: IconButton(icon: Icon(Icons.cancel),
+  //      onPressed: () {},
+  //      ),
+  //    ),
+  //  );
+  //}
 
   Widget _cuadroDatos() {
     return Padding(
