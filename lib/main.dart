@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         "detalle"              : (BuildContext context) => EventoPage(),
         "participantes"        : (BuildContext context) => ParticipantesPage(),
         "destalleParticipante" : (BuildContext context) => DetalleParticipante(),
-        "resultadosFinales" : (BuildContext context) => ResultadosFinalesPage(),
+        "resultadosFinales"    : (BuildContext context) => ResultadosFinalesPage(),
       },
     );
   }
