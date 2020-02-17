@@ -1,32 +1,30 @@
-  class EventoModel {
-    String id;
-    String nombreEvento;
-    List<Participantes> participantes;
-
-    EventoModel({
-      this.id,
-      this.nombreEvento,
-      this.participantes
-    });
-
-    factory EventoModel.fromJson(Map<String, dynamic> parsedJson){
-      var list = parsedJson['participantes'] as List;
-      //print(list.runtimeType);
-      List<Participantes> participantesList = list.map((i) => Participantes.fromJson(i)).toList();
-      return EventoModel(
-        id            : parsedJson ['id'],
-        nombreEvento  : parsedJson ['nombreEvento'],
-        participantes : participantesList
-      );
-    }
+class EventoModel {
+  String id;
+  String nombreEvento;
+  List<Participantes> participantes;
+  EventoModel({
+    this.id,
+    this.nombreEvento,
+    this.participantes
+  });
+  factory EventoModel.fromJson(Map<String, dynamic> parsedJson){
+    var list = parsedJson['participantes'] as List;
+    //print(list.runtimeType);
+    List<Participantes> participantesList = list.map((i) => Participantes.fromJson(i)).toList();
+    return EventoModel(
+      id            : parsedJson ['id'],
+      nombreEvento  : parsedJson ['nombreEvento'],
+      participantes : participantesList
+    );
   }
+}
 
-  class Participantes {
+class Participantes {
   String uniqueId;
   String apellido;
-  int chip;
+  dynamic chip;
   String nombre;
-  int numero;
+  dynamic numero;
   String place;
   String tiempo;
 
@@ -40,7 +38,6 @@
   });
 
   factory Participantes.fromJson(Map<String, dynamic> parsedJson) {
-    //print(list.runtimeType);
     return Participantes(
       apellido  : parsedJson['Apellido'],
       chip      : parsedJson['Chip'],

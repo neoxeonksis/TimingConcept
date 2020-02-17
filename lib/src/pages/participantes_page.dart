@@ -215,7 +215,7 @@ class _ParticipantesPageState extends State<ParticipantesPage> {
   }
 
   Widget _botonBusqueda(EventoModel evento) {
-    print(evento.id);
+    //print(evento.id);
     return FloatingActionButton(
       heroTag: "buscar",
       child: Icon(Icons.search),
