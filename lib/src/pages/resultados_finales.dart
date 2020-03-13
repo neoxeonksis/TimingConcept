@@ -13,6 +13,9 @@ class ResultadosFinalesPage extends StatefulWidget {
 
 class _ResultadosFinalesPageState extends State<ResultadosFinalesPage> {
   
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = 
+    new GlobalKey<RefreshIndicatorState>();
+
   final eventosProvider = new EventosProvider();
   
   EventoModel evento = new EventoModel();
@@ -45,12 +48,22 @@ class _ResultadosFinalesPageState extends State<ResultadosFinalesPage> {
             //SizedBox(height: 20.0,),
             _cuadroDatosLlegada(),
             Expanded(
-              child: _crearListadoParticipantes(),
+              child: RefreshIndicator(
+                key: _refreshIndicatorKey,
+                onRefresh: _refresh,
+                child: _crearListadoParticipantes()
+              ),
             )
           ],
         ),
       ),
     );
+  }
+
+  Future<Null> _refresh() {
+    return eventosProvider.cargarParticipantes(evento, participantes).then((participanteReultados) {
+      setState (() => participanteReultados = participanteReultados);
+    });
   }
 
   Widget _backBottom() {

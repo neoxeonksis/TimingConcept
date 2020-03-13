@@ -11,6 +11,9 @@ class DetalleParticipante extends StatefulWidget {
 
 class _DetalleParticipanteState extends State<DetalleParticipante> {
   
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = 
+    new GlobalKey<RefreshIndicatorState>();
+
   final eventosProvider = EventosProvider();
   
   EventoModel evento = EventoModel();
@@ -31,34 +34,42 @@ class _DetalleParticipanteState extends State<DetalleParticipante> {
           backgroundColor: Color(0xFF249FE2),
         ),
       ),
+      floatingActionButton: _refreshBottom(),
       backgroundColor: Colors.white,
-      body:  Container(
+      body: Container(
         color: Colors.white,
         child: Column(
-          children: <Widget>[
-            _encabezadoParticipante(context, AssetImage("assets/icon/info_corredor.png"), participantes),
-            SizedBox(width: 15.0),
-            _nombres(),
-            SizedBox(width: 15.0),
-            _tiempos(),
-            SizedBox(width: 15.0),
-            _posicion(),
-            SizedBox(width: 15.0),
-            _numero(),
-            SizedBox(width: 15.0),
-            Container(foregroundDecoration: BoxDecoration(
-              color: Colors.grey,
-              backgroundBlendMode: BlendMode.saturation),
-              child:_mapa("Ver En Mapa(Proximamente)")
-            ),
-          ],
-        ),
+            children: <Widget>[
+              _encabezadoParticipante(context, AssetImage("assets/icon/info_corredor.png"), participantes),
+              SizedBox(width: 15.0),
+              _nombres(),
+              SizedBox(width: 15.0),
+              _tiempos(),
+              SizedBox(width: 15.0),
+              _posicion(),
+              SizedBox(width: 15.0),
+              _numero(),
+              SizedBox(width: 15.0),
+              Container(foregroundDecoration: BoxDecoration(
+                color: Colors.grey,
+                backgroundBlendMode: BlendMode.saturation),
+                child:_mapa("Ver En Mapa(Proximamente)")
+              ),
+            ],
+          ),
       ),
     );
   }
 
+  Future<Null> _refresh() {
+    return eventosProvider.cargarParticipantes(evento, participante).then((detalleCorredor) {
+      setState (() => detalleCorredor = detalleCorredor);
+    });
+  }
+
   Widget _backBottom() {
     return FloatingActionButton(
+      heroTag: null,
       elevation: 0.0,
       backgroundColor: Colors.white,
       child: Icon(
@@ -69,6 +80,20 @@ class _DetalleParticipanteState extends State<DetalleParticipante> {
       onPressed: (){
         Navigator.pop(context);
       },
+    );
+  }
+
+  Widget _refreshBottom() {
+    return FloatingActionButton(
+      heroTag: null,
+      elevation: 0.0,
+      backgroundColor: Color(0xFF249FE2),
+      child: Icon(
+        Icons.refresh,
+        size: 45.0,
+        color: Colors.white
+      ),
+      onPressed: (){_refresh();},
     );
   }
 
