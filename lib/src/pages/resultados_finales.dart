@@ -196,8 +196,8 @@ class _ResultadosFinalesPageState extends State<ResultadosFinalesPage> {
               fontWeight: FontWeight.w400
             ),
             children: [
-              TextSpan(text: '${participantes.tiempo}'),
-              TextSpan(text: '     '+'${participantes.numero}',
+              TextSpan(text: '${participantes.tiempoFinal}'),
+              TextSpan(text: '     '+'${participantes.dorsal}',
                 style: TextStyle(
                   fontWeight: FontWeight.w600
                 )

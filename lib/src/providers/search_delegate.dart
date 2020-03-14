@@ -83,7 +83,7 @@ Participantes participantes =  Participantes();
               fontWeight: FontWeight.w400
             ),
             children: [
-              TextSpan(text: '     '+'${participantes.numero}',
+              TextSpan(text: '     '+'${participantes.dorsal}',
                 style: TextStyle(
                   fontWeight: FontWeight.w600
                 )

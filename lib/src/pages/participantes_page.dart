@@ -198,39 +198,38 @@ class _ParticipantesPageState extends State<ParticipantesPage> {
   }
 
   Widget _crearParticipante(BuildContext context, Participantes participantes, EventoModel evento) {
-    //print("evento: $evento");
     return Padding(
       padding: EdgeInsets.all(10.0),
       child: GestureDetector(
-        child: RichText(
-          softWrap: false,
-          text: TextSpan(
-            style: TextStyle(
-              color: Colors.black,
-              fontFamily: "Lato_LightItalic",
-              fontStyle: FontStyle.italic,
-              //fontSize: 18.0,
-              fontWeight: FontWeight.w400
+        child: Row(
+          children: <Widget>[
+            SizedBox(width: 10.0,),
+            Container(
+              width: 60.0,
+              child: Text("${participantes.dorsal}",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 22.0,
+                fontWeight: FontWeight.w600,
+                color: Colors.black,
+                fontFamily: "Lato_LightItalic",
+                fontStyle: FontStyle.italic
+              ),),
             ),
-            children: [
-              TextSpan(text: '    '+'${participantes.numero}',
-                style: TextStyle(
-                  fontSize: 22.0,
-                  fontWeight: FontWeight.w600
-                )
-              ),
-              TextSpan(text: "        "),
-              TextSpan(text: '${participantes.apellido} ${participantes.nombre}',
-                style: TextStyle(
-                  fontSize: 15.0,
-                  fontWeight: FontWeight.w600,
-                  
-                )
-              )
-            ],
-          ),
+            SizedBox(width: 16.0,),
+            Expanded(
+              child: Text("${participantes.apellido} ${participantes.nombre}",
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.w600,
+                color: Colors.black,
+                fontFamily: "Lato_LightItalic",
+                fontStyle: FontStyle.italic
+              ),),
+            )
+          ],
         ),
-        onTap: () => Navigator.pushNamed(context, 'destalleParticipante', arguments: participantes),
+        onTap: () => Navigator.pushNamed(context, 'destalleParticipante', arguments: participantes)
       ),
     );
   }

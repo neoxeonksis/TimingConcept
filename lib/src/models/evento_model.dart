@@ -20,42 +20,61 @@ class EventoModel {
 }
 
 class Participantes {
-  String uniqueId;
   String apellido;
+  String categoria;
   dynamic chip;
+  String concurso;
+  dynamic dorsal;
+  String posicion;
   String nombre;
-  dynamic numero;
-  String place;
-  String tiempo;
+  dynamic tiempoFinal;
+  String tipoEvento;
+  String velocidad;
+  String posicionGeneral;
 
   Participantes({
     this.apellido,
+    this.categoria,
     this.chip,
+    this.concurso,
+    this.dorsal,
+    this.posicion,
     this.nombre,
-    this.numero,
-    this.place,
-    this.tiempo,
+    this.tiempoFinal,
+    this.tipoEvento,
+    this.velocidad,
+    this.posicionGeneral
   });
 
   factory Participantes.fromJson(Map<String, dynamic> parsedJson) {
     return Participantes(
-      apellido  : parsedJson['Apellido'],
-      chip      : parsedJson['Chip'],
-      nombre    : parsedJson['Nombre'],
-      numero    : parsedJson['Numero'],
-      place     : parsedJson['Place'],
-      tiempo    : parsedJson['Tiempo'],
+      apellido        : parsedJson['Apellido'],
+      categoria       : parsedJson['Categoria'],
+      chip            : parsedJson['Chip'],
+      concurso        : parsedJson['Concurso'],
+      dorsal          : parsedJson['Dorsal'],
+      posicion        : parsedJson['Posicion'],
+      nombre          : parsedJson['Nombre'],
+      tiempoFinal     : parsedJson['TiempoFinal'],
+      tipoEvento      : parsedJson['TipoEvento'],
+      velocidad       : parsedJson['Velocidad'],
+      posicionGeneral : parsedJson['PosicionGeneral']
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'Apellido'  : apellido,
-      'Chip'      : chip,
-      'Nombre'    : nombre,
-      'Numero'    : numero,
-      'Place'     : place,
-      'Tiempo'    : tiempo,
+      'Apellido'        : apellido,
+      'Categoria'       : categoria,
+      'Chip'            : chip,
+      'Concurso'        : concurso,
+      'Dorsal'          : dorsal,
+      'Posicion'        : posicion,
+      'Nombre'          : nombre,
+      'TiempoFinal'     : tiempoFinal,
+      'TipoEvento'      : tipoEvento,
+      'Velocidad'       : velocidad,
+      'PosicionGeneral' : posicionGeneral 
     };
   }
 }
