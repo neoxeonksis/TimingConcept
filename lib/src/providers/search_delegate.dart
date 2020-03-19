@@ -50,7 +50,7 @@ Participantes participantes =  Participantes();
     }
 
     return FutureBuilder<List<Participantes>>(
-      future: eventosProvider.buscarParticipantes(evento, participantes),
+      future: eventosProvider.cargarParticipantes(evento, participantes),
       builder: (context, snapshot) {
         if ( snapshot.hasData ) {
           final participantes = snapshot.data;
@@ -73,20 +73,6 @@ Participantes participantes =  Participantes();
     return Padding(
       padding: EdgeInsets.all(10.0),
       child: GestureDetector(
-<<<<<<< HEAD
-        child: RichText(
-          softWrap: false,
-          text: TextSpan(
-            style: TextStyle(
-              color: Colors.black,
-              fontFamily: "Lato_LightItalic",
-              fontStyle: FontStyle.italic,
-              fontSize: 20.0,
-              fontWeight: FontWeight.w400
-            ),
-            children: [
-              TextSpan(text:'${participantes.numero}',
-=======
         child: Card(
           elevation: 05.0,
           shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(10.0) ),
@@ -97,7 +83,6 @@ Participantes participantes =  Participantes();
                 width: 60.0,
                 child: Text("${participantes.dorsal}",
                 textAlign: TextAlign.center,
->>>>>>> 984a1cd7f9b2ae0341b609c1b2a34098b5ffb0c4
                 style: TextStyle(
                   fontSize: 22.0,
                   fontWeight: FontWeight.w600,
