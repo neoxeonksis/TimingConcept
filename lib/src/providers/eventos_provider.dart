@@ -35,7 +35,7 @@ class EventosProvider {
 
   Future<List<Participantes>> buscarParticipantes( EventoModel evento, Participantes participantes ) async {
 
-    final url = "$_url/eventos/evbsd5132s/participantes.json";
+    final url = "$_url/eventos/${ evento.id }/participantes.json";
     final resp = await http.get(url);
     final respBody = json.decode(resp.body) as List;
     final participantes = respBody.map((x) => Participantes.fromJson(x)).toList();

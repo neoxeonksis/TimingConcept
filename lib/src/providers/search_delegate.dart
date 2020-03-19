@@ -51,27 +51,29 @@ Participantes participantes =  Participantes();
 
     return FutureBuilder<List<Participantes>>(
       future: eventosProvider.buscarParticipantes(evento, participantes),
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        if (snapshot.hasData) {
+      builder: (context, snapshot) {
+        if ( snapshot.hasData ) {
           final participantes = snapshot.data;
           return ListView.builder(
             itemCount: participantes.length,
-            itemBuilder: (context, i) { 
-              return _crearParticipante(context, participantes[i]);
+            itemBuilder: (context, i) {
+              return _crearParticipante(context, participantes[i], evento);
             }
           );
-        } else {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
+        } else if (snapshot.hasError){
+          return Center(child: Text("${snapshot.error}"));
+        } else {  
+          return Center( child: CircularProgressIndicator());
         }
       },
     );
   }
-  Widget _crearParticipante(BuildContext context, Participantes participantes) {
+
+  Widget _crearParticipante(BuildContext context, Participantes participantes, EventoModel evento) {
     return Padding(
-      padding: EdgeInsets.all(12.0),
+      padding: EdgeInsets.all(10.0),
       child: GestureDetector(
+<<<<<<< HEAD
         child: RichText(
           softWrap: false,
           text: TextSpan(
@@ -84,18 +86,43 @@ Participantes participantes =  Participantes();
             ),
             children: [
               TextSpan(text:'${participantes.numero}',
+=======
+        child: Card(
+          elevation: 05.0,
+          shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(10.0) ),
+          child: Row(
+            children: <Widget>[
+              SizedBox(width: 10.0,),
+              Container(
+                width: 60.0,
+                child: Text("${participantes.dorsal}",
+                textAlign: TextAlign.center,
+>>>>>>> 984a1cd7f9b2ae0341b609c1b2a34098b5ffb0c4
                 style: TextStyle(
-                  fontWeight: FontWeight.w600
-                )
+                  fontSize: 22.0,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFF249FE2),
+                  fontFamily: "Lato_LightItalic",
+                  fontStyle: FontStyle.italic
+                ),),
               ),
-              TextSpan(text: "           "),
-              TextSpan(text: '${participantes.apellido} ${participantes.nombre}',)
+              SizedBox(width: 16.0,),
+              Expanded(
+                child: Text("${participantes.apellido} ${participantes.nombre}",
+                style: TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black,
+                  fontFamily: "Lato_LightItalic",
+                  fontStyle: FontStyle.italic
+                ),),
+              )
             ],
           ),
         ),
-        onTap: () => Navigator.pushNamed(context, 'destalleParticipante', arguments: participantes),
+        onTap: () => Navigator.pushNamed(context, 'destalleParticipante', arguments: participantes)
       ),
     );
   }
-  
+
 }

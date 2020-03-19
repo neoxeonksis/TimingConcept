@@ -29,6 +29,14 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  
+  flutter_launcher_icons:
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon/logo_blanco.png"
+  adaptative_icon_background: "assets/icon/logo_blanco.png"
 
 
 # For information on the generic Dart part of this file, see the

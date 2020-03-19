@@ -15,12 +15,17 @@ class ParticipantesPage extends StatefulWidget {
 
 class _ParticipantesPageState extends State<ParticipantesPage> {
 
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = 
+    new GlobalKey<RefreshIndicatorState>();
+
   final eventosProvider = new EventosProvider();
 
   TextEditingController controller = new TextEditingController();
   
   EventoModel evento = new EventoModel();
   Participantes participantes = new Participantes();
+
+  
   
   @override
   Widget build(BuildContext context) {
@@ -44,12 +49,14 @@ class _ParticipantesPageState extends State<ParticipantesPage> {
         child: Column(
           children: <Widget>[
             _encabezadoParticipantes("Lista de Participantes", AssetImage("assets/icon/lista_participantes-1.png")),
-            //SizedBox(height: 20.0,),
-            //_barraBusqueda(),
-            //SizedBox(height: 20.0,),
+            _barraBusqueda(),
             _cuadroDatos(),
             Expanded(
-              child: _crearListadoParticipantes(),
+              child: RefreshIndicator(
+                key: _refreshIndicatorKey,
+                onRefresh: _refresh,
+                child: _crearListadoParticipantes()
+              ),
             )
           ],
         ),
@@ -57,14 +64,21 @@ class _ParticipantesPageState extends State<ParticipantesPage> {
     );
   }
 
+  Future<Null> _refresh() {
+    return eventosProvider.cargarParticipantes(evento, participantes).then((participantesListPage) {
+      setState (() => participantesListPage = participantesListPage);
+    });
+  }
+
   Widget _backBottom() {
     return FloatingActionButton(
       heroTag: "back",
-      elevation: 0.0, 
+      mini: true,
+      elevation: 0.0,
       backgroundColor: Colors.white,
       child: Icon(
         Icons.arrow_back,
-        size: 45.0,
+        size: 40.0,
         color: Colors.black,
       ),
       onPressed: (){
@@ -93,14 +107,15 @@ class _ParticipantesPageState extends State<ParticipantesPage> {
                     color: Colors.white,
                     fontFamily: "Lato",
                     fontStyle: FontStyle.italic,
-                    fontSize: 38.0,
+                    fontSize: 30.0,
                     fontWeight: FontWeight.bold
                   ),
                 ),
               ),
             ),
             Image(image: image,
-            fit: BoxFit.cover,
+            height: 90,
+            width: 85,
             ),
           ],
         ),
@@ -108,31 +123,30 @@ class _ParticipantesPageState extends State<ParticipantesPage> {
     );
   }
 
-  //Widget _barraBusqueda() {
-  //  return Padding(
-  //    padding: EdgeInsets.all(0.0),
-  //    child: ListTile(
-  //      title: TextField(
-  //        controller: controller,
-  //        decoration: InputDecoration(
-  //          hintText: "Buscar Dorsal ó Nombre"
-  //        ),
-  //        onChanged: (text){
-  //          
-  //        },
-  //      ),
-  //      trailing: IconButton(icon: Icon(Icons.cancel),
-  //      onPressed: () {},
-  //      ),
-  //    ),
-  //  );
-  //}
+  Widget _barraBusqueda() {
+   return Padding(
+     padding: EdgeInsets.all(0.0),
+     child: ListTile(
+       title: TextField(
+         controller: controller,
+         decoration: InputDecoration(
+           hintText: "Buscar Numero ó Nombre"
+         ),
+         onChanged: (text){
+         },
+       ),
+       trailing: IconButton(icon: Icon(Icons.cancel),
+       onPressed: () {},
+       ),
+     ),
+   );
+  }
 
   Widget _cuadroDatos() {
     return Padding(
       padding: EdgeInsets.all(10.0),
       child: Container(
-        height: 30,
+        height: 28,
         color: Color(0xFF249FE2),
         child: Row(
           children: <Widget>[
@@ -141,22 +155,22 @@ class _ParticipantesPageState extends State<ParticipantesPage> {
                 color: Colors.white,
                 fontFamily: "Lato_LightItalic",
                 fontStyle: FontStyle.italic,
-                fontSize: 23.0,
+                fontSize: 20.0,
                 fontWeight: FontWeight.w300
               ),
             ),
-            SizedBox(width: 20.0),
+            SizedBox(width: 15.0),
             Text("Apellidos",
               style: TextStyle(
                 color: Colors.white,
                 fontFamily: "Lato_LightItalic",
                 fontStyle: FontStyle.italic,
-                fontSize: 23.0,
+                fontSize: 20.0,
                 fontWeight: FontWeight.w300
               ),
             )
           ],
-           mainAxisSize: MainAxisSize.max,
+          mainAxisSize: MainAxisSize.max,
         ),
       ),
     );
@@ -184,38 +198,48 @@ class _ParticipantesPageState extends State<ParticipantesPage> {
   }
 
   Widget _crearParticipante(BuildContext context, Participantes participantes, EventoModel evento) {
-    //print("evento: $evento");
     return Padding(
-      padding: EdgeInsets.all(12.0),
+      padding: EdgeInsets.all(10.0),
       child: GestureDetector(
-        child: RichText(
-          softWrap: false,
-          text: TextSpan(
-            style: TextStyle(
-              color: Colors.black,
-              fontFamily: "Lato_LightItalic",
-              fontStyle: FontStyle.italic,
-              fontSize: 20.0,
-              fontWeight: FontWeight.w400
-            ),
-            children: [
-              TextSpan(text: '     '+'${participantes.numero}',
+        child: Card(
+          elevation: 05.0,
+          shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(10.0) ),
+          child: Row(
+            children: <Widget>[
+              SizedBox(width: 10.0,),
+              Container(
+                width: 60.0,
+                child: Text("${participantes.dorsal}",
+                textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontWeight: FontWeight.w600
-                )
+                  fontSize: 22.0,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFF249FE2),
+                  fontFamily: "Lato_LightItalic",
+                  fontStyle: FontStyle.italic
+                ),),
               ),
-              TextSpan(text: "           "),
-              TextSpan(text: '${participantes.apellido} ${participantes.nombre}',)
+              SizedBox(width: 16.0,),
+              Expanded(
+                child: Text("${participantes.apellido} ${participantes.nombre}",
+                style: TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black,
+                  fontFamily: "Lato_LightItalic",
+                  fontStyle: FontStyle.italic
+                ),),
+              )
             ],
           ),
         ),
-        onTap: () => Navigator.pushNamed(context, 'destalleParticipante', arguments: participantes),
+        onTap: () => Navigator.pushNamed(context, 'destalleParticipante', arguments: participantes)
       ),
     );
   }
 
   Widget _botonBusqueda(EventoModel evento) {
-    print(evento.id);
+    //print(evento.id);
     return FloatingActionButton(
       heroTag: "buscar",
       child: Icon(Icons.search),

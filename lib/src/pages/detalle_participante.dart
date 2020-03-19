@@ -11,6 +11,9 @@ class DetalleParticipante extends StatefulWidget {
 
 class _DetalleParticipanteState extends State<DetalleParticipante> {
   
+  // final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = 
+  //   new GlobalKey<RefreshIndicatorState>();
+
   final eventosProvider = EventosProvider();
   
   EventoModel evento = EventoModel();
@@ -31,21 +34,33 @@ class _DetalleParticipanteState extends State<DetalleParticipante> {
           backgroundColor: Color(0xFF249FE2),
         ),
       ),
+      floatingActionButton: _refreshBottom(),
       backgroundColor: Colors.white,
-      body:  Container(
-        color: Colors.white,
+      body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
             _encabezadoParticipante(context, AssetImage("assets/icon/info_corredor.png"), participantes),
-            SizedBox(width: 15.0),
-            _nombres(),
-            SizedBox(width: 15.0),
+            Container(
+              color: Color(0xFF249FE2),
+              child: _nombres(),
+            ),
             _tiempos(),
-            SizedBox(width: 15.0),
+            _categoria(),
+            Container(
+              child: Text("POSICIÓN",
+                style: TextStyle(
+                  fontSize: 28.0,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black,
+                  fontFamily: "Lato_LightItalic",
+                  fontStyle: FontStyle.italic
+                ),
+              ),
+            ),
             _posicion(),
-            SizedBox(width: 15.0),
-            _numero(),
-            SizedBox(width: 15.0),
+            SizedBox(height: 10.0),
+            _velocidad(),
+            SizedBox(height: 15.0),
             Container(foregroundDecoration: BoxDecoration(
               color: Colors.grey,
               backgroundBlendMode: BlendMode.saturation),
@@ -57,18 +72,39 @@ class _DetalleParticipanteState extends State<DetalleParticipante> {
     );
   }
 
+  Future<Null> _refresh() {
+    return eventosProvider.cargarParticipantes(evento, participante).then((detalleCorredor) {
+      setState (() => detalleCorredor = detalleCorredor);
+    });
+  }
+
   Widget _backBottom() {
     return FloatingActionButton(
+      mini: true,
       elevation: 0.0,
       backgroundColor: Colors.white,
       child: Icon(
         Icons.arrow_back,
-        size: 45.0,
+        size: 40.0,
         color: Colors.black,
       ),
       onPressed: (){
         Navigator.pop(context);
       },
+    );
+  }
+
+  Widget _refreshBottom() {
+    return FloatingActionButton(
+      heroTag: null,
+      elevation: 0.0,
+      backgroundColor: Color(0xFF249FE2),
+      child: Icon(
+        Icons.refresh,
+        size: 45.0,
+        color: Colors.white
+      ),
+      onPressed: _refresh,
     );
   }
 
@@ -99,7 +135,8 @@ class _DetalleParticipanteState extends State<DetalleParticipante> {
               ),
             ),
             Image(image: image,
-            fit: BoxFit.cover,
+            height: 90,
+            width: 85,
             ),
           ],
         ),
@@ -110,104 +147,194 @@ class _DetalleParticipanteState extends State<DetalleParticipante> {
   Widget _nombres() {
     return Padding(
       padding: EdgeInsets.all(10.0),
-        child: ListTile(
-          title: Text("Apellido: ${participante.apellido}",
-          style: TextStyle(
-            color: Colors.black,
-            fontFamily: "Lato_LightItalic",
-            fontStyle: FontStyle.italic,
-            fontSize: 32.0,
-            fontWeight: FontWeight.w400
+      child: Row(
+        children: <Widget>[
+            Container(
+              child: Text("${participante.dorsal} - ",
+              textAlign: TextAlign.left,
+                style: TextStyle(
+                  fontSize: 40.0,
+                  fontWeight: FontWeight.normal,
+                  color: Colors.white,
+                  fontFamily: "Lato_LightItalic",
+                  fontStyle: FontStyle.italic
+                ),
+              ),
             ),
-          ),
-          subtitle: Text("Nombre: ${participante.nombre}",
-          style: TextStyle(
-            color: Colors.black,
-            fontFamily: "Lato_LightItalic",
-            fontStyle: FontStyle.italic,
-            fontSize: 28.0,
-            fontWeight: FontWeight.w400
+          Expanded(
+            child: Container(
+              alignment: Alignment.centerLeft,
+              height: 50.0,
+              width: 30.0,
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text("${participante.apellido}",
+                  style: TextStyle(
+                    fontSize: 36.0,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.white,
+                    fontFamily: "Lato_LightItalic",
+                    fontStyle: FontStyle.italic
+                  ),
+                ),
+              ),
             ),
-          ),
-        )
+          )
+        ],
+      ),
     );
   }
 
   Widget _tiempos() {
     return Padding(
       padding: EdgeInsets.all(12.0),
-      child: ListTile(
-        title: Text("Tiempo Chip:",
-          style: TextStyle(
-            color: Colors.black,
-            fontFamily: "Lato_LightItalic",
-            fontStyle: FontStyle.italic,
-            fontSize: 32.0,
-            fontWeight: FontWeight.w400
+      child: Row(
+        children: <Widget>[
+          Text("Tiempo Chip",
+          textAlign: TextAlign.left,
+            style: TextStyle(
+              fontSize: 25.0,
+              fontWeight: FontWeight.w600,
+              color: Colors.black,
+              fontFamily: "Lato_LightItalic",
+              fontStyle: FontStyle.italic
+            ),
           ),
-        ),
-      subtitle: Text("${participante.tiempo}",
-        style: TextStyle(
-          color: Color(0xFF249FE2),
-          fontFamily: "Lato_LightItalic",
-          fontStyle: FontStyle.italic,
-          fontSize: 42.0,
-          fontWeight: FontWeight.w600
+          SizedBox(width: 15.0,),
+          Expanded(
+            child: FittedBox(
+              fit: BoxFit.fitWidth,
+              child: Text("${participante.tiempoFinal}",
+                style: TextStyle(
+                  fontSize: 50.0,
+                  fontWeight: FontWeight.normal,
+                  color: Color(0xFF249FE2),
+                  fontFamily: "Lato_LightItalic",
+                  fontStyle: FontStyle.italic
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _categoria() {
+    return Padding(
+      padding: EdgeInsets.all(12.0),
+      child: Row(
+        children: <Widget>[
+          Text("Categoría",
+          textAlign: TextAlign.left,
+            style: TextStyle(
+              fontSize: 25.0,
+              fontWeight: FontWeight.w600,
+              color: Colors.black,
+              fontFamily: "Lato_LightItalic",
+              fontStyle: FontStyle.italic
+            ),
           ),
-        ),
-      )
+          SizedBox(width: 15.0,),
+          Expanded(
+            child: FittedBox(
+              fit: BoxFit.fitWidth,
+              child: Text("${participante.categoria}",
+                style: TextStyle(
+                  fontSize: 50.0,
+                  fontWeight: FontWeight.normal,
+                  color: Color(0xFF249FE2),
+                  fontFamily: "Lato_LightItalic",
+                  fontStyle: FontStyle.italic
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 
   Widget _posicion() {
     return Padding(
       padding: EdgeInsets.all(12.0),
-      child: ListTile(
-        title: Text("Posición",
-          style: TextStyle(
-            color: Colors.black,
-            fontFamily: "Lato_LightItalic",
-            fontStyle: FontStyle.italic,
-            fontSize: 38.0,
-            fontWeight: FontWeight.w400
-          ),
-        ),
-      subtitle: Text("${participante.place}",
-        style: TextStyle(
-          color: Color(0xFF249FE2),
-          fontFamily: "Lato_LightItalic",
-          fontStyle: FontStyle.italic,
-          fontSize: 60.0,
-          fontWeight: FontWeight.w600
-          ),
+      child: Align(
+        alignment: Alignment.center,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+                Text("${participante.posicionGeneral}",
+                  style: TextStyle(
+                    fontSize: 50.0,
+                    fontWeight: FontWeight.normal,
+                    color: Color(0xFF249FE2),
+                    fontFamily: "Lato_LightItalic",
+                    fontStyle: FontStyle.italic
+                  ),
+                ),
+                Text("EN LA GENERAL",
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black,
+                    fontFamily: "Lato"
+                  ),
+                )
+              ],
+            ),
+            SizedBox(width: 30.0,),
+            Column(
+              children: <Widget>[
+                Text("${participante.posicion}",
+                  style: TextStyle(
+                    fontSize: 50.0,
+                    fontWeight: FontWeight.normal,
+                    color: Color(0xFF249FE2),
+                    fontFamily: "Lato_LightItalic",
+                    fontStyle: FontStyle.italic
+                  ),
+                ),
+                Text("EN SU CATEGORIA",
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black,
+                    fontFamily: "Lato"
+                  ),
+                )
+              ],
+            )
+          ],
         ),
       )
     );
   }
 
-  Widget _numero() {
-    return Padding(
-      padding: EdgeInsets.all(12.0),
-      child: ListTile(
-        title: Text("Dorsal",
+  Widget _velocidad() {
+    return Column(
+      children: <Widget>[
+        Text("VELOCIDAD PROMEDIO",
           style: TextStyle(
+            fontSize: 25.0,
+            fontWeight: FontWeight.normal,
+            color: Color(0xFF249FE2),
+            fontFamily: "Lato_LightItalic",
+            fontStyle: FontStyle.italic
+          ),
+        ),
+        Text("${participante.velocidad} KM/H",
+          style: TextStyle(
+            fontSize: 50.0,
+            fontWeight: FontWeight.w400,
             color: Colors.black,
             fontFamily: "Lato_LightItalic",
-            fontStyle: FontStyle.italic,
-            fontSize: 38.0,
-            fontWeight: FontWeight.w400
+            fontStyle: FontStyle.italic
           ),
-        ),
-      subtitle: Text("${participante.numero}",
-        style: TextStyle(
-          color: Color(0xFF249FE2),
-          fontFamily: "Lato_LightItalic",
-          fontStyle: FontStyle.italic,
-          fontSize: 56.0,
-          fontWeight: FontWeight.w600
-          ),
-        ),
-      )
+        )
+      ],
     );
   }
 
@@ -227,16 +354,19 @@ class _DetalleParticipanteState extends State<DetalleParticipante> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 Flexible(
-                  child: Text(nombre,
-                  textAlign: TextAlign.center,
-                    maxLines: 2,
-                    softWrap: false,
-                    style: TextStyle(                
-                      color: Colors.white,
-                      fontFamily: "Lato",
-                      fontStyle: FontStyle.italic,
-                      fontSize: 30.0,
-                      fontWeight: FontWeight.bold
+                  child: FittedBox(
+                    fit: BoxFit.fitWidth,
+                    child: Text(nombre,
+                    textAlign: TextAlign.center,
+                      maxLines: 2,
+                      softWrap: false,
+                      style: TextStyle(                
+                        color: Colors.white,
+                        fontFamily: "Lato",
+                        fontStyle: FontStyle.italic,
+                        fontSize: 30.0,
+                        fontWeight: FontWeight.bold
+                      ),
                     ),
                   ),
                 ),

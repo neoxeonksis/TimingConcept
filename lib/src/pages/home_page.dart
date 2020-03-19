@@ -10,6 +10,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = 
+    new GlobalKey<RefreshIndicatorState>();
   
   final eventosProvider = new EventosProvider();
 
@@ -29,18 +32,28 @@ class _HomePageState extends State<HomePage> {
             _encabezadoSeguimiento(),
             SizedBox(height: 10.0),
             _descripccion(),
-            SizedBox(height: 20.0,),
             SizedBox(
               child: _titulo(),
             ),
             Expanded(
-              child: _crearListado(),
+              child: RefreshIndicator(
+                key: _refreshIndicatorKey,
+                onRefresh: _refresh,
+                child: _crearListado()
+              ),
             )
           ],
         ),
       ),
     );
   }
+
+  Future<Null> _refresh() {
+    return eventosProvider.cargarEventos().then((nombreEvento) {
+      setState (() => nombreEvento = nombreEvento);
+    });
+  }
+  
 
   Widget _encabezadoSeguimiento() {
     return Container(
@@ -59,7 +72,7 @@ class _HomePageState extends State<HomePage> {
                   color: Colors.white,
                   fontFamily: "Lato",
                   fontStyle: FontStyle.italic,
-                  fontSize: 40.0,
+                  fontSize: 35.0,
                   fontWeight: FontWeight.bold
                 ),
               ),
@@ -76,7 +89,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _descripccion() {
     return  Text("Aqui encontraras los eventos que se estan desarrollando ahora mismo",
-      maxLines: 2,
+      maxLines: 3,
       softWrap: true,
       textAlign: TextAlign.center,
       style: TextStyle(
@@ -128,6 +141,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _crearEvento(BuildContext context, EventoModel evento) {
     return ListTile(
+      //contentPadding: EdgeInsets.all(05),
       title: Text('${ evento.nombreEvento }',
         textAlign: TextAlign.left,
         maxLines: 2,

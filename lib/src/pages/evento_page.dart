@@ -14,6 +14,7 @@ class _EventoPageState extends State<EventoPage> {
   final eventosProvider = new EventosProvider();
 
   EventoModel evento = new EventoModel();
+  Participantes participantes = new Participantes();
 
   @override
   Widget build(BuildContext context) {
@@ -31,33 +32,35 @@ class _EventoPageState extends State<EventoPage> {
           backgroundColor: Color(0xFF249FE2),
         ),
       ),
-      backgroundColor: Colors.white,
-      body: Column(
-        children: <Widget>[
-          _encabezadoDetalle(eventoData, AssetImage("assets/icon/atletismo.png")),
-           SizedBox(height: 40.0),
-           Container(
-             foregroundDecoration: BoxDecoration(
-               color: Colors.grey,
-               backgroundBlendMode: BlendMode.saturation
-             ),
-             child: _mapaInteractivo(AssetImage("assets/icon/mapa_interactivo.png"), "Proximamente!!!")),
-           SizedBox(height: 40.0),
-           _listadoParticipantes(AssetImage("assets/icon/lista_participantes.png"), "Listado de Participantes"),
-           SizedBox(height: 40.0),
-           _resultadosFinales(AssetImage("assets/icon/resultados_finales.png"), "Resultados Finales")
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            _encabezadoDetalle(eventoData, AssetImage("assets/icon/atletismo.png")),
+             SizedBox(height: 30.0),
+             Container(
+               foregroundDecoration: BoxDecoration(
+                 color: Colors.grey,
+                 backgroundBlendMode: BlendMode.saturation
+               ),
+               child: _mapaInteractivo(AssetImage("assets/icon/mapa_interactivo.png"), "Proximamente!!!")),
+             SizedBox(height: 30.0),
+             _listadoParticipantes(AssetImage("assets/icon/lista_participantes.png"), "Listado de Participantes"),
+             SizedBox(height: 30.0),
+             _resultadosFinales(AssetImage("assets/icon/resultados_finales.png"), "Resultados Finales")
+          ],
+        ),
       ),
     );
   }
 
   Widget _backBottom() {
     return FloatingActionButton(
+      mini: true,
       elevation: 0.0,
       backgroundColor: Colors.white,
       child: Icon(
         Icons.arrow_back,
-        size: 45.0,
+        size: 40.0,
         color: Colors.black,
       ),
       onPressed: (){
@@ -80,20 +83,21 @@ class _EventoPageState extends State<EventoPage> {
                 padding: const EdgeInsets.all(8.0),
                 child: Text(evento.nombreEvento,
                 textAlign: TextAlign.center,
-                  maxLines: 3,
-                  softWrap: true,
+                maxLines: 3,
+                  //softWrap: true,
                   style: TextStyle(                
                     color: Colors.white,
                     fontFamily: "Lato",
                     fontStyle: FontStyle.italic,
-                    fontSize: 30.0,
+                    fontSize: 28.0,
                     fontWeight: FontWeight.bold
                   ),
                 ),
               ),
             ),
             Image(image: image,
-            fit: BoxFit.cover,
+            height: 80,
+            width: 65,
             ),
           ],
         ),
@@ -116,7 +120,10 @@ class _EventoPageState extends State<EventoPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
-                Image(image: icono),
+                Image(image: icono,
+                height: 100,
+                width: 85,
+                ),
                 Flexible(
                   child: Text(nombre,
                   textAlign: TextAlign.center,
@@ -126,7 +133,7 @@ class _EventoPageState extends State<EventoPage> {
                       color: Colors.white,
                       fontFamily: "Lato",
                       fontStyle: FontStyle.italic,
-                      fontSize: 40.0,
+                      fontSize: 30.0,
                       fontWeight: FontWeight.bold
                     ),
                   ),
@@ -154,7 +161,10 @@ class _EventoPageState extends State<EventoPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
-                Image(image: icono),
+                Image(image: icono,
+                height: 100,
+                width: 85,
+                ),
                 Flexible(
                   child: Text(nombre,
                   textAlign: TextAlign.center,
@@ -164,7 +174,7 @@ class _EventoPageState extends State<EventoPage> {
                       color: Colors.white,
                       fontFamily: "Lato",
                       fontStyle: FontStyle.italic,
-                      fontSize: 40.0,
+                      fontSize: 30.0,
                       fontWeight: FontWeight.bold
                     ),
                   ),
@@ -192,7 +202,10 @@ class _EventoPageState extends State<EventoPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
-                Image(image: icono),
+                Image(image: icono,
+                height: 100,
+                width: 85,
+                ),
                 Flexible(
                   child: Text(nombre,
                   textAlign: TextAlign.center,
@@ -202,7 +215,7 @@ class _EventoPageState extends State<EventoPage> {
                       color: Colors.white,
                       fontFamily: "Lato",
                       fontStyle: FontStyle.italic,
-                      fontSize: 40.0,
+                      fontSize: 30.0,
                       fontWeight: FontWeight.bold
                     ),
                   ),
