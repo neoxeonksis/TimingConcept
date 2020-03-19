@@ -196,8 +196,7 @@ class _ResultadosFinalesPageState extends State<ResultadosFinalesPage> {
             children: <Widget>[
               SizedBox(width: 10.0,),
               Container(
-                width: 90.0,
-                child: Text("${participantes.tiempoFinal}",
+                width: 120.0,                child: Text("${participantes.tiempoFinal}",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 22.0,
