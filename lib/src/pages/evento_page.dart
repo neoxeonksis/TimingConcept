@@ -14,6 +14,7 @@ class _EventoPageState extends State<EventoPage> {
   final eventosProvider = new EventosProvider();
 
   EventoModel evento = new EventoModel();
+  Participantes participantes = new Participantes();
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,6 @@ class _EventoPageState extends State<EventoPage> {
           backgroundColor: Color(0xFF249FE2),
         ),
       ),
-      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[

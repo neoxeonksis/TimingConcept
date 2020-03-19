@@ -37,39 +37,36 @@ class _DetalleParticipanteState extends State<DetalleParticipante> {
       floatingActionButton: _refreshBottom(),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
-        child: Container(
-          color: Colors.white,
-          child: Column(
-              children: <Widget>[
-                _encabezadoParticipante(context, AssetImage("assets/icon/info_corredor.png"), participantes),
-                Container(
-                  color: Color(0xFF249FE2),
-                  child: _nombres(),
-                ),
-                SizedBox(height: 15.0),
-                _tiempos(),
-                Container(
-                  child: Text("POSICIÓN",
-                    style: TextStyle(
-                      fontSize: 28.0,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black,
-                      fontFamily: "Lato_LightItalic",
-                      fontStyle: FontStyle.italic
-                    ),
-                  ),
-                ),
-                _posicion(),
-                SizedBox(height: 35.0),
-                _velocidad(),
-                SizedBox(height: 15.0),
-                Container(foregroundDecoration: BoxDecoration(
-                  color: Colors.grey,
-                  backgroundBlendMode: BlendMode.saturation),
-                  child:_mapa("Ver En Mapa(Proximamente)")
-                ),
-              ],
+        child: Column(
+          children: <Widget>[
+            _encabezadoParticipante(context, AssetImage("assets/icon/info_corredor.png"), participantes),
+            Container(
+              color: Color(0xFF249FE2),
+              child: _nombres(),
             ),
+            _tiempos(),
+            _categoria(),
+            Container(
+              child: Text("POSICIÓN",
+                style: TextStyle(
+                  fontSize: 28.0,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black,
+                  fontFamily: "Lato_LightItalic",
+                  fontStyle: FontStyle.italic
+                ),
+              ),
+            ),
+            _posicion(),
+            SizedBox(height: 10.0),
+            _velocidad(),
+            SizedBox(height: 15.0),
+            Container(foregroundDecoration: BoxDecoration(
+              color: Colors.grey,
+              backgroundBlendMode: BlendMode.saturation),
+              child:_mapa("Ver En Mapa(Proximamente)")
+            ),
+          ],
         ),
       ),
     );
@@ -107,7 +104,7 @@ class _DetalleParticipanteState extends State<DetalleParticipante> {
         size: 45.0,
         color: Colors.white
       ),
-      onPressed: (){_refresh();},
+      onPressed: _refresh,
     );
   }
 
@@ -152,30 +149,35 @@ class _DetalleParticipanteState extends State<DetalleParticipante> {
       padding: EdgeInsets.all(10.0),
       child: Row(
         children: <Widget>[
-            FittedBox(
-              fit: BoxFit.fitWidth,
-              child: Text("${participante.dorsal}",
+            Container(
+              child: Text("${participante.dorsal} - ",
               textAlign: TextAlign.left,
-              style: TextStyle(
-                fontSize: 35.0,
-                fontWeight: FontWeight.normal,
-                color: Colors.white,
-                fontFamily: "Lato_LightItalic",
-                fontStyle: FontStyle.italic
-              ),),
+                style: TextStyle(
+                  fontSize: 40.0,
+                  fontWeight: FontWeight.normal,
+                  color: Colors.white,
+                  fontFamily: "Lato_LightItalic",
+                  fontStyle: FontStyle.italic
+                ),
+              ),
             ),
-          //SizedBox(width: 05.0,),
           Expanded(
-            child: FittedBox(
-              fit: BoxFit.fitWidth,
-              child: Text(" - ${participante.apellido}",
-              style: TextStyle(
-                fontSize: 35.0,
-                fontWeight: FontWeight.normal,
-                color: Colors.white,
-                fontFamily: "Lato_LightItalic",
-                fontStyle: FontStyle.italic
-              ),),
+            child: Container(
+              alignment: Alignment.centerLeft,
+              height: 50.0,
+              width: 30.0,
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text("${participante.apellido}",
+                  style: TextStyle(
+                    fontSize: 36.0,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.white,
+                    fontFamily: "Lato_LightItalic",
+                    fontStyle: FontStyle.italic
+                  ),
+                ),
+              ),
             ),
           )
         ],
@@ -188,7 +190,7 @@ class _DetalleParticipanteState extends State<DetalleParticipante> {
       padding: EdgeInsets.all(12.0),
       child: Row(
         children: <Widget>[
-          Text("Tiempo Total",
+          Text("Tiempo Chip",
           textAlign: TextAlign.left,
             style: TextStyle(
               fontSize: 25.0,
@@ -203,6 +205,41 @@ class _DetalleParticipanteState extends State<DetalleParticipante> {
             child: FittedBox(
               fit: BoxFit.fitWidth,
               child: Text("${participante.tiempoFinal}",
+                style: TextStyle(
+                  fontSize: 50.0,
+                  fontWeight: FontWeight.normal,
+                  color: Color(0xFF249FE2),
+                  fontFamily: "Lato_LightItalic",
+                  fontStyle: FontStyle.italic
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _categoria() {
+    return Padding(
+      padding: EdgeInsets.all(12.0),
+      child: Row(
+        children: <Widget>[
+          Text("Categoría",
+          textAlign: TextAlign.left,
+            style: TextStyle(
+              fontSize: 25.0,
+              fontWeight: FontWeight.w600,
+              color: Colors.black,
+              fontFamily: "Lato_LightItalic",
+              fontStyle: FontStyle.italic
+            ),
+          ),
+          SizedBox(width: 15.0,),
+          Expanded(
+            child: FittedBox(
+              fit: BoxFit.fitWidth,
+              child: Text("${participante.categoria}",
                 style: TextStyle(
                   fontSize: 50.0,
                   fontWeight: FontWeight.normal,
